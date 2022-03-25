@@ -1,0 +1,92 @@
+//------Beginning of Target script
+
+/* 
+Script purpose(s): 
+1.Give the enemy avatar health 
+2.Make the enemy strikeable 
+3. Set the amount that this enemy's health goes down by when hit
+4. Delete the enemy from their health goes down to zero 
+
+<End of multi line comment container> 
+*/
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class target : MonoBehaviour
+{//Beginning of public class target=============== 
+
+    public float health_Target = 50f; //enemy health please change name to enemy health
+
+    // Start is called before the first frame update
+    void Start()
+    {//Beginning of Start======
+        
+    }//End of Start==== 
+
+    // Update is called once per frame
+    void Update()
+    {//Beginning of Update function==========
+        
+    }//End of Update function=================
+
+    
+        public void TakeDamage(float amount)
+        {//Beginning of TakeDamage function==================
+
+            health_Target -= amount;//subtracting the health from the enemy(ies) that were just struck
+
+            //StartCoroutine(hitFlash());//will though the coroutine will probably not be necessary anymore
+
+            if (health_Target <= 0f)
+            {
+                // currentScore = currentScore + 1;
+                // SetScoreText();       
+                Die();
+            }
+
+        }//End of TakeDamage function==========================
+
+        // static void incrementEnemyScore
+    void Die()
+    {//Beginning of Die function==========
+
+       // EnemyDestroyed++;
+
+        //Instantiate(deathParticles, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);//original  --add in destroy deathParticles after we get some of this ish working
+
+
+
+    }//End of Die function==========
+
+    void OnTriggerEnter(Collider col)
+    {//Beginning of OnTriggerEnter(Collider col)
+
+        if (col.tag == "player_Bullet")
+        {//beginning of if (col.tag == "player_Lightning_Bullet")
+
+             Debug.Log("Hit by player_Bullet");
+
+            health_Target = health_Target - 20;
+
+                if (health_Target <= 0f)
+                {
+                    // currentScore = currentScore + 1;
+                    // SetScoreText();       
+                    Die();
+                }
+
+        }//end of if (col.tag == "player_Lightning_Bullet")
+
+    }//end of OnTriggerEnter(Collider col)
+
+
+}//============End of public class target
+
+//-----End of target script
