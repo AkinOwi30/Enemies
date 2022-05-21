@@ -1,0 +1,135 @@
+//------Beginning of Target script
+
+/* 
+Script purpose(s): 
+1.Have a health bar that represents the enemy's/target's current health.
+2.Give the enemy avatar health 
+3.Make the enemy strikeable 
+4. Set the amount that this enemy's health goes down by when hit
+5. Delete the enemy from their health goes down to zero 
+
+
+<End of multi line comment container> 
+*/
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class target : MonoBehaviour
+{//Beginning of public class target=============== 
+
+    //Health
+    public float health_Target_Max = 50f;
+    public float health_Target = 50f; //enemy health please change name to enemy health
+    
+
+    //Health bar image
+    public Image healthBarImage;
+
+
+
+    //Particles
+    public ParticleSystem explosion_EnemyShip;
+    public int delay_Explosion = 1; //This implies a delay of 2 seconds
+
+    //Sound
+    //public AudioSource sound_Explosion;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {//Beginning of Start======
+        
+    }//End of Start==== 
+
+    // Update is called once per frame
+    void Update()
+    {//Beginning of Update function==========
+
+           UpdateHealthBar();
+
+    }//End of Update function=================
+
+    public void UpdateHealthBar() 
+    {//Beginning of public void UpdateHealthBar
+
+    healthBarImage.fillAmount = Mathf.Clamp(health_Target/health_Target_Max, 0, 1f);
+
+    }//End of public void UpdateHealthBar
+
+    
+        public void TakeDamage(float amount)
+        {//Beginning of TakeDamage function==================
+
+            health_Target -= amount;//subtracting the health from the enemy(ies) that were just struck
+            
+            //StartCoroutine(hitFlash());//will though the coroutine will probably not be necessary anymore
+
+
+         
+
+            if (health_Target <= 0f)
+            {
+                // currentScore = currentScore + 1;
+                // SetScoreText();       
+                Die();
+            }
+
+        }//End of TakeDamage function==========================
+
+        // static void incrementEnemyScore
+    void Die()
+    {//Beginning of Die function==========
+
+       //Number of enemies destroyed in case you want to add it to the UI
+       enemyDestroyed++; 
+
+      //Creating the enemy ship explosion
+      Instantiate(explosion_EnemyShip, transform.position, Quaternion.identity);
+
+      //Playing the enemy explosion Sound
+      //Play.sound_Explosion();
+
+      //Destroying the enemy ship 
+      Destroy(gameObject,delay_Explosion);//original  --add in destroy deathParticles after we get some of this ish working
+
+
+
+    }//End of Die function==========
+
+    void OnTriggerEnter(Collider col)
+    {//Beginning of OnTriggerEnter(Collider col)
+
+        if (col.tag == "player_Bullet")
+        {//beginning of if (col.tag == "player_Lightning_Bullet")
+
+             Debug.Log("Hit by player_Bullet");
+
+            health_Target = health_Target - 20;
+
+                if (health_Target <= 0f)
+                {
+                    // currentScore = currentScore + 1;
+                    // SetScoreText();       
+                    Die();
+                }
+
+        }//end of if (col.tag == "player_Lightning_Bullet")
+
+    }//end of OnTriggerEnter(Collider col)
+
+        public static int enemyDestroyed
+    {
+        get;
+        private set;
+    }//End of public static int EnemyDestroyed
+
+
+
+}//============End of public class target
+
+//-----End of target script
