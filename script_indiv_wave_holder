@@ -1,0 +1,60 @@
+//NOT DONE
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//Beginning of usings
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+//End of usings
+
+
+public class script_indiv_wave_holder : MonoBehaviour
+{//BEGINNING OF PUBLIC script_indiv_wave_holder CLASS
+
+
+    //---Beginning of WAVE Array declarations---//
+    [SerializeField] public GameObject[] allEnemyShipsInCurrentWave;
+    [SerializeField] public GameObject[] allEnemyShipsInNextWave;
+    //---End of WAVE Array declarations---//
+
+    //-----Beginning OF ARRAY VARIABLE declarations-------//
+    int totalNumOfEnemyShipsInCurrentWave;//Will be used to compare the total number of enemies alive  vs the allEnemyShipsInPreviousWave.length 
+    int totalNumOfEnemyShipsInNextWave;
+
+    //-----End OF ARRAY VARIABLE declarations-------//
+
+
+    // Start is called before the first frame update
+    void Start()
+    {//BEGINNING OF START
+        
+        printNumOfEnemiesInThisWave();
+
+    }//END OF START
+
+    // Update is called once per frame
+    void Update()
+    {//BEGINNING OF Update
+        
+    }//END OF Update
+
+        void printNumOfEnemiesInThisWave()
+        {//Beginning of printNumOfEnemiesInThisWave function
+
+            //B OF Turning array lengTHS INTO INTS
+            totalNumOfEnemyShipsInCurrentWave = allEnemyShipsInCurrentWave.Length;
+            totalNumOfEnemyShipsInNextWave = allEnemyShipsInNextWave.Length;
+            // E OF Turning array lengTHS INTO INTS
+
+            //B OF PRINTING THE NUMS IN WAVES
+            Debug.Log("Number of enemies in this wave = " + totalNumOfEnemyShipsInCurrentWave);
+            Debug.Log("Number of enemies in thE NEXT wave = " + totalNumOfEnemyShipsInNextWave);
+            //E OF PRINTING THE NUMS IN WAVES
+
+        }//End of printNumOfEnemiesInThisWave function
+
+
+}//END OF PUBLIC script_indiv_wave_holder CLASS
